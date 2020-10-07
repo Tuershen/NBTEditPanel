@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="NBTEditPanel">
+    <output-path>$PROJECT_DIR$/../../1.7.10/server/plugins</output-path>
+    <root id="archive" name="NBTEditPanel.jar">
+      <element id="module-output" name="NBTEditPanel" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
+    </root>
+  </artifact>
+</component>

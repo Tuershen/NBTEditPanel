@@ -1,0 +1,6 @@
+name: NBTEditPanel
+main: pers.tuershen.nbtedit.NBTEditPanelMain
+version: 1.20
+author: 兔儿神
+commands:
+  edit:
