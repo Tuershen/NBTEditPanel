@@ -1,10 +1,10 @@
 package pers.tuershen.nbtedit.function.edit.tile.mobspawner.entity;
 
 import org.bukkit.inventory.ItemStack;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagCompound;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagList;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagString;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagCompound;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagList;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagString;
 import pers.tuershen.nbtedit.function.AbstractEditManager;
 import pers.tuershen.nbtedit.function.handle.NewNBTTag;
 

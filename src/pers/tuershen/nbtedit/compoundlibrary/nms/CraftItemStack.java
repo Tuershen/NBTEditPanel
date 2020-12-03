@@ -1,9 +1,8 @@
 package pers.tuershen.nbtedit.compoundlibrary.nms;
 
 
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.item.MinecraftItem;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.item.AbstractMinecraftItem;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -26,8 +25,8 @@ public class CraftItemStack {
         try {
             craftItemStackClass = Class.forName("org.bukkit.craftbukkit."+version+".inventory.CraftItemStack");
             asNMSCopy = craftItemStackClass.getDeclaredMethod("asNMSCopy",ItemStack.class);
-            minecraftItemStackClass = MinecraftItem.getInstance().classItemStack();
-            asBukkitCopy = craftItemStackClass.getDeclaredMethod("asBukkitCopy",minecraftItemStackClass);
+            minecraftItemStackClass = AbstractMinecraftItem.getInstance().classItemStack();
+            asBukkitCopy = craftItemStackClass.getDeclaredMethod("asBukkitCopy", minecraftItemStackClass);
         } catch (ClassNotFoundException
                 | NoSuchMethodException e) {
             e.printStackTrace();
@@ -59,7 +58,7 @@ public class CraftItemStack {
 
         Object item = null;
         try {
-            item = asBukkitCopy.invoke(craftItemStackClass,minecraftItemStack.getMinecraftItemStack());
+            item = asBukkitCopy.invoke(craftItemStackClass, minecraftItemStack.getMinecraftItemStack());
         } catch (IllegalAccessException
                 | InvocationTargetException e) {
             e.printStackTrace();

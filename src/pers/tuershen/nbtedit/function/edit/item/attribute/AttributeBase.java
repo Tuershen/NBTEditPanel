@@ -1,7 +1,7 @@
 package pers.tuershen.nbtedit.function.edit.item.attribute;
 
 
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.*;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.*;
 import pers.tuershen.nbtedit.function.AbstractEditManager;
 import pers.tuershen.nbtedit.function.handle.NewNBTTag;
 

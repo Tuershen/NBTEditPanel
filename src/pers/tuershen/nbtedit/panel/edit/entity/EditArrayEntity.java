@@ -1,8 +1,8 @@
 package pers.tuershen.nbtedit.panel.edit.entity;
 
 import pers.tuershen.nbtedit.compoundlibrary.api.EntityNBTTagCompoundApi;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagList;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagList;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -12,7 +12,6 @@ import pers.tuershen.nbtedit.panel.edit.AbstractPanelEditEntity;
 import pers.tuershen.nbtedit.function.AbstractEditManager;
 import pers.tuershen.nbtedit.setting.handle.EditPanelManagerEnum;
 import pers.tuershen.nbtedit.setting.handle.TagTypeEnum;
-import pers.tuershen.nbtedit.setting.handle.ButtonEnum;
 import pers.tuershen.nbtedit.setting.handle.HandleEventTypeEnum;
 
 import java.util.ArrayList;
@@ -35,6 +34,31 @@ public class EditArrayEntity extends AbstractPanelEditEntity {
         this.key = key;
         this.slot = slot;
         this.editItem = editItem;
+    }
+
+
+    @Override public AbstractEdit getEdit() {
+        return this.editItem;
+    }
+
+    @Override public TagBase getTagBase() {
+        return this.list;
+    }
+
+    @Override public Inventory getInventory() {
+        return this.panel;
+    }
+
+    @Override public Object getKey() {
+        return this.key;
+    }
+
+    @Override public int getSlot() {
+        return this.slot;
+    }
+
+    @Override public EntityNBTTagCompoundApi getEntityNBTTagCompoundApi() {
+        return this.entityNBTTagCompoundApi;
     }
 
     @Override
@@ -89,7 +113,7 @@ public class EditArrayEntity extends AbstractPanelEditEntity {
 
     @Override
     public void addSlotPositionNBTTag(String msg, int slot, Player player) {
-        saveList((TagList) EditPanelManagerEnum.getInstance(TagTypeEnum.LIST).addTag(msg,player,slot,this.list));
+        saveList((TagList) EditPanelManagerEnum.getInstance(TagTypeEnum.LIST).addTag(msg, player, slot, this.list));
         player.openInventory(panel);
     }
 
@@ -114,35 +138,6 @@ public class EditArrayEntity extends AbstractPanelEditEntity {
     }
 
 
-    @Override
-    public AbstractEdit getEdit() {
-        return this.editItem;
-    }
-
-    @Override
-    public TagBase getTagBase() {
-        return this.list;
-    }
-
-    @Override
-    public Inventory getInventory() {
-        return this.panel;
-    }
-
-    @Override
-    public Object getKey() {
-        return this.key;
-    }
-
-    @Override
-    public int getSlot() {
-        return this.slot;
-    }
-
-    @Override
-    public EntityNBTTagCompoundApi getEntityNBTTagCompoundApi() {
-        return this.entityNBTTagCompoundApi;
-    }
 
 
 

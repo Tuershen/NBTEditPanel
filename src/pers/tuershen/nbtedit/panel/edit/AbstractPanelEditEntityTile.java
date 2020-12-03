@@ -3,8 +3,8 @@ package pers.tuershen.nbtedit.panel.edit;
 
 import pers.tuershen.nbtedit.compoundlibrary.api.NBTTagCompoundApi;
 import pers.tuershen.nbtedit.compoundlibrary.api.TileEntityCompoundApi;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagCompound;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagCompound;
 import pers.tuershen.nbtedit.panel.AbstractEdit;
 import pers.tuershen.nbtedit.event.HandleMessagesEntityTileEvent;
 import pers.tuershen.nbtedit.event.listener.ReceiverEntityTileListener;

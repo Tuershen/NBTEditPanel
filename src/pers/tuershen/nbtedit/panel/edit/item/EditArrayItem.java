@@ -1,8 +1,8 @@
 package pers.tuershen.nbtedit.panel.edit.item;
 
 
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagList;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagList;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -12,7 +12,6 @@ import pers.tuershen.nbtedit.panel.edit.AbstractPanelEditItem;
 import pers.tuershen.nbtedit.function.AbstractEditManager;
 import pers.tuershen.nbtedit.setting.handle.EditPanelManagerEnum;
 import pers.tuershen.nbtedit.setting.handle.TagTypeEnum;
-import pers.tuershen.nbtedit.setting.handle.ButtonEnum;
 import pers.tuershen.nbtedit.setting.handle.HandleEventTypeEnum;
 
 
@@ -22,13 +21,13 @@ import java.util.UUID;
 
 public class EditArrayItem extends AbstractPanelEditItem {
 
-    private TagList      list;
+    private    TagList       list;
 
-    private AbstractEdit editItem;
+    private    AbstractEdit  editItem;
 
-    protected int slot;
+    protected  int           slot;
 
-    protected Object key;
+    protected  Object        key;
 
 
     public EditArrayItem(UUID uuid, ItemStack itemStack, TagList tagList, AbstractEdit editItem, Object key, int slot) {
@@ -38,6 +37,25 @@ public class EditArrayItem extends AbstractPanelEditItem {
         this.key = key;
         this.slot = slot;
     }
+
+    @Override public AbstractEdit getEdit() { return this.editItem; }
+
+    @Override public TagBase getTagBase() {
+        return this.list;
+    }
+
+    @Override public Inventory getInventory() {
+        return this.panel;
+    }
+
+    @Override public Object getKey(){
+        return this.key;
+    }
+
+    @Override public int getSlot(){
+        return this.slot;
+    }
+
 
     @Override
     public Inventory newOpenPanel() {
@@ -66,7 +84,7 @@ public class EditArrayItem extends AbstractPanelEditItem {
         if (this.triggerMsg(editFunctionManager,player)){
             saveArray((TagList) EditPanelManagerEnum.getInstance(TagTypeEnum.LIST).addFunction("",player,this.list,editFunctionManager));
             ItemStack itemStack = updateNode(this);
-            player.getInventory().setItemInMainHand(itemStack);
+            player.getInventory().setItemInHand(itemStack);
             return;
         }
         receiverItemListener.registerReceiverAddFunctionMsgPlayer(this.uuid, this, editFunctionManager, itemStack, HandleEventTypeEnum.FUNCTION_CALL);
@@ -95,7 +113,7 @@ public class EditArrayItem extends AbstractPanelEditItem {
      */
     @Override
     public ItemStack addSlotPositionNBTTag(String msg, int slot, ItemStack itemStack, Player player) {
-        saveArray((TagList) EditPanelManagerEnum.getInstance(TagTypeEnum.LIST).addTag(msg,player,slot,this.list));
+        saveArray((TagList) EditPanelManagerEnum.getInstance(TagTypeEnum.LIST).addTag(msg, player, slot, this.list));
         player.openInventory(panel);
         return updateNode(this);
     }
@@ -121,7 +139,6 @@ public class EditArrayItem extends AbstractPanelEditItem {
 
     @Override
     public ItemStack addFunctionNBTTag(String msg, Player player, ItemStack itemStack, AbstractEditManager editManager) {
-
         saveArray((TagList) EditPanelManagerEnum.getInstance(TagTypeEnum.LIST).addFunction(msg,player,this.list,editManager));
         return updateNode(this);
     }
@@ -161,28 +178,6 @@ public class EditArrayItem extends AbstractPanelEditItem {
         this.list = list;
         this.inventoryList = new ArrayList<>();
         this.analysisList(this.list);
-    }
-
-
-    @Override
-    public AbstractEdit getEdit() { return this.editItem; }
-
-    @Override
-    public TagBase getTagBase() {
-        return this.list;
-    }
-
-    @Override
-    public Inventory getInventory() {
-        return this.panel;
-    }
-
-    public Object getKey(){
-        return this.key;
-    }
-
-    public int getSlot(){
-        return this.slot;
     }
 
 

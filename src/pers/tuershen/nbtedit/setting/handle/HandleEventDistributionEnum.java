@@ -25,40 +25,54 @@ public enum  HandleEventDistributionEnum implements Distribution {
            if (event.getInventory().getHolder() instanceof AbstractEdit) {
                //如果点击位置小于35说明在NBT显示范围内
                if (slot <= 35) {
-                   //如果是shift+右键物品槽位说明需要删除该位置的物品
-                   if (event.getClick() == ClickType.SHIFT_RIGHT) return HandleEventTypeEnum.DELETE;
-                   //如果是shift+左键修改该位置的物品NBT
-                   if (event.getClick() == ClickType.MIDDLE) return HandleEventTypeEnum.SET;
-                   //打开a
-                   if (event.getClick() == ClickType.LEFT) return HandleEventTypeEnum.NEW_PANEL;
-                   return HandleEventTypeEnum.CANCELLED;
+                   switch (event.getClick()){
+                       //打开a
+                       case LEFT:
+                           return HandleEventTypeEnum.NEW_PANEL;
+                       //如果是shift+右键物品槽位说明需要删除该位置的物品
+                       case SHIFT_RIGHT:
+                           return  HandleEventTypeEnum.DELETE;
+                       //如果是shift+左键修改该位置的物品NBT
+                       case MIDDLE:
+                           return HandleEventTypeEnum.SET;
+                       default:
+                           return HandleEventTypeEnum.CANCELLED;
+                   }
                } else if (slot >= 35 && slot <= 45 || slot == 53) {
                    //添加NBT
                    return HandleEventTypeEnum.ADD;
                } else {
                    switch (slot) {
-                       //返回上一级
+                           //返回上一级
                        case AbstractEdit.MIDDLE_SLOT_POS:
                            return HandleEventTypeEnum.MIDDLE_PAGE;
-                       //上一页
+                           //上一页
                        case AbstractEdit.PREVIOUS_SLOT_POS:
                            return HandleEventTypeEnum.PREVIOUS_PAGE;
-                       //下一页
+                           //下一页
                        case AbstractEdit.NEXT_SLOT_POS:
                            return HandleEventTypeEnum.NEXT_PAGE;
-                       //功能表
+                           //功能表
                        case 46:
-                       case 47:
-                       case 51:
-                       case 52:
                            return HandleEventTypeEnum.FUNCTION_TABLE;
+                           //连续编辑模式
+                       case 47:
+                           return HandleEventTypeEnum.CONTINUOUS_MODE;
+                           //复制
+                       case 51:
+                           return HandleEventTypeEnum.NBT_COPY;
+                           //粘贴
+                       case 52:
+                           return HandleEventTypeEnum.NBT_PASTE;
                        default:
                            return HandleEventTypeEnum.NULL;
                    }
                }
            } else if (event.getInventory().getHolder() instanceof EditFunctionManager) {
+               //功能表
                return HandleEventTypeEnum.FUNCTION_CALL;
            }
+           //不触发任何功能
            return HandleEventTypeEnum.NULL;
        }
    }

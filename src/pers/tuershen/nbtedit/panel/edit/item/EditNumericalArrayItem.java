@@ -3,7 +3,7 @@ package pers.tuershen.nbtedit.panel.edit.item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
 import pers.tuershen.nbtedit.function.AbstractEditManager;
 import pers.tuershen.nbtedit.panel.AbstractEdit;
 import pers.tuershen.nbtedit.panel.edit.AbstractPanelEditItem;

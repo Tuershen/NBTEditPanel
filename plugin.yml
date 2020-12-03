@@ -1,6 +1,6 @@
 name: NBTEditPanel
-main: pers.tuershen.nbtedit.NBTEditPanelMain
-version: 1.20
+main: pers.tuershen.nbtedit.NBTEditPanel
+version: 1.35
 author: 兔儿神
 commands:
   edit:

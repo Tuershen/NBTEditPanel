@@ -1,8 +1,8 @@
 package pers.tuershen.nbtedit.panel.edit.tile;
 
 import pers.tuershen.nbtedit.compoundlibrary.api.TileEntityCompoundApi;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagCompound;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagCompound;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -41,6 +41,31 @@ public class EditCompoundEntityTile extends AbstractPanelEditEntityTile {
         this.edit = edit;
     }
 
+    @Override public TileEntityCompoundApi tileEntityCompoundApi() {
+        return this.tileEntityCompoundApi;
+    }
+
+    @Override public AbstractEdit getEdit() {
+        return this.edit;
+    }
+
+    @Override public TagBase getTagBase() {
+        return this.tagCompound;
+    }
+
+    @Override public Inventory getInventory() {
+        return this.panel;
+    }
+
+    @Override public Object getKey() {
+        return this.key;
+    }
+
+    @Override public int getSlot() {
+        return this.slot;
+    }
+
+
     @Override
     public Inventory newOpenPanel() {
         if (this.tagCompound == null || this.tagCompound.getMap().size() <= 0){
@@ -51,6 +76,8 @@ public class EditCompoundEntityTile extends AbstractPanelEditEntityTile {
         }
         return this.analysisCompound(this.tagCompound);
     }
+
+
 
     @Override
     public void remove(Object var, int slot) {
@@ -95,7 +122,8 @@ public class EditCompoundEntityTile extends AbstractPanelEditEntityTile {
     }
 
     @Override
-    public void setSlotPositionNBTTag(String msg, Object key, Player player, byte type) {
+    public void
+    setSlotPositionNBTTag(String msg, Object key, Player player, byte type) {
         TagBase tagBase = this.newSingleNBT(type,msg,player);
         if (tagBase != null) {
             saveCompound((TagCompound) EditPanelManagerEnum.getInstance(TagTypeEnum.COMPOUND).setTag(this.tagCompound,player,key,tagBase));
@@ -114,35 +142,6 @@ public class EditCompoundEntityTile extends AbstractPanelEditEntityTile {
         save(this);
     }
 
-    @Override
-    public TileEntityCompoundApi tileEntityCompoundApi() {
-        return this.tileEntityCompoundApi;
-    }
-
-    @Override
-    public AbstractEdit getEdit() {
-        return this.edit;
-    }
-
-    @Override
-    public TagBase getTagBase() {
-        return this.tagCompound;
-    }
-
-    @Override
-    public Inventory getInventory() {
-        return this.panel;
-    }
-
-    @Override
-    public Object getKey() {
-        return this.key;
-    }
-
-    @Override
-    public int getSlot() {
-        return this.slot;
-    }
 
 
 }

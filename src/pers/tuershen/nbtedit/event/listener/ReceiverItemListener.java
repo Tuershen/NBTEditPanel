@@ -79,7 +79,7 @@ public class ReceiverItemListener implements ReceiverItemSubject, PushMessages {
                             enumTypeMap.get(uuid),
                             handStack.get(uuid),
                             event.getPlayer());
-                    event.getPlayer().getInventory().setItemInMainHand(addItem);
+                    event.getPlayer().getInventory().setItemInHand(addItem);
                     uuidAbstractPanelEditMap.remove(uuid);
                     enumTypeMap.remove(uuid);
                     handStack.remove(uuid);
@@ -93,7 +93,7 @@ public class ReceiverItemListener implements ReceiverItemSubject, PushMessages {
                             handStack.get(uuid),
                             event.getPlayer(),
                             slotPositionMap.get(uuid));
-                    event.getPlayer().getInventory().setItemInMainHand(setItem);
+                    event.getPlayer().getInventory().setItemInHand(setItem);
                     uuidAbstractPanelEditMap.remove(uuid);
                     handStack.remove(uuid);
                     handleEventTypeEnumMap.remove(uuid);
@@ -106,7 +106,7 @@ public class ReceiverItemListener implements ReceiverItemSubject, PushMessages {
                             event.getPlayer(),
                             handStack.get(uuid),
                             managerMap.get(uuid));
-                    event.getPlayer().getInventory().setItemInMainHand(addFunction);
+                    event.getPlayer().getInventory().setItemInHand(addFunction);
                     uuidAbstractPanelEditMap.remove(uuid);
                     managerMap.remove(uuid);
                     handleEventTypeEnumMap.remove(uuid);

@@ -1,9 +1,9 @@
 package pers.tuershen.nbtedit.setting.handle;
 
 
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagCompound;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagList;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagCompound;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagList;
 import org.bukkit.inventory.Inventory;
 import pers.tuershen.nbtedit.panel.edit.entity.EditArrayEntity;
 import pers.tuershen.nbtedit.panel.edit.entity.EditCompoundEntity;

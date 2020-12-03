@@ -2,7 +2,7 @@ package pers.tuershen.nbtedit.setting.handle;
 
 import pers.tuershen.nbtedit.compoundlibrary.api.EntityNBTTagCompoundApi;
 import pers.tuershen.nbtedit.compoundlibrary.api.TileEntityCompoundApi;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
 import org.bukkit.inventory.ItemStack;
 import pers.tuershen.nbtedit.panel.AbstractEdit;
 

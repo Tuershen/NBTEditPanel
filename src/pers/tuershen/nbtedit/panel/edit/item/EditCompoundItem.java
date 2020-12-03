@@ -1,8 +1,8 @@
 package pers.tuershen.nbtedit.panel.edit.item;
 
 
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagCompound;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagCompound;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -50,6 +50,21 @@ public class EditCompoundItem extends AbstractPanelEditItem {
     }
 
 
+    @Override public AbstractEdit getEdit() { return this.panelEditItem; }
+
+    @Override public TagBase getTagBase() { return this.tagCompound; }
+
+    @Override public Inventory getInventory() { return this.panel; }
+
+    @Override public Object getKey(){
+        return this.key;
+    }
+
+    @Override public int getSlot(){
+        return this.slot;
+    }
+
+
     @Override
     public Inventory newOpenPanel() {
         if (this.tagCompound == null || this.tagCompound.getMap().size() <= 0) {
@@ -92,7 +107,7 @@ public class EditCompoundItem extends AbstractPanelEditItem {
         if (triggerMsg(editManager,player)){
             saveCompound((TagCompound) EditPanelManagerEnum.getInstance(TagTypeEnum.COMPOUND).addFunction("", player, this.tagCompound, editManager));
             ItemStack itemStack = updateNode(this);
-            player.getInventory().setItemInMainHand(itemStack);
+            player.getInventory().setItemInHand(itemStack);
             return;
         }
         receiverItemListener.registerReceiverAddFunctionMsgPlayer(this.uuid, this, editManager, itemStack, HandleEventTypeEnum.FUNCTION_CALL);
@@ -143,29 +158,6 @@ public class EditCompoundItem extends AbstractPanelEditItem {
         this.analysisCompound(tagCompound);
     }
 
-
-    @Override
-    public AbstractEdit getEdit() {
-        return this.panelEditItem;
-    }
-
-    @Override
-    public TagBase getTagBase() {
-        return this.tagCompound;
-    }
-
-    @Override
-    public Inventory getInventory() {
-        return this.panel;
-    }
-
-    public Object getKey(){
-        return this.key;
-    }
-
-    public int getSlot(){
-        return this.slot;
-    }
 
 
 

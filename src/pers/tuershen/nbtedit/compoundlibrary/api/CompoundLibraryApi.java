@@ -46,6 +46,11 @@ public interface CompoundLibraryApi {
     TileEntityCompoundApi getTileEntityCompoundApi(Block block);
 
 
+    /**
+     * 把Bukkit的ItemStack转换为NMS的ItemStack
+     * @param itemStack
+     * @return NMS -> ItemStack
+     */
     Object getMinecraftItem(ItemStack itemStack);
 
 

@@ -1,11 +1,12 @@
 package pers.tuershen.nbtedit.setting.handle;
 
 import org.bukkit.entity.Player;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagCompound;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagList;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagCompound;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagList;
 import pers.tuershen.nbtedit.function.AbstractEditManager;
 import pers.tuershen.nbtedit.setting.EditPanelManager;
+import pers.tuershen.nbtedit.setting.type.ButtonEnum;
 
 import java.util.Map;
 

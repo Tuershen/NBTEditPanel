@@ -70,6 +70,15 @@ public class PlayerEditPanelEvent implements Listener {
                 BukkitEventHandle.editFunctionPanel(event);
                 event.setCancelled(true);
                 break;
+            case CONTINUOUS_MODE:
+                event.setCancelled(true);
+                break;
+            case NBT_COPY:
+                event.setCancelled(true);
+                break;
+            case NBT_PASTE:
+                event.setCancelled(true);
+                break;
             case NULL:
             default:
                 break;

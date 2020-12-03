@@ -9,11 +9,27 @@ import java.util.UUID;
 
 public interface ReceiverItemSubject {
 
-    void registerReceiverAddMsgPlayer(UUID uid, AbstractPanelEditItem panelEdit, int slot, ItemStack itemStack, HandleEventTypeEnum eventTypeEnum);
+    void registerReceiverAddMsgPlayer(
+            UUID uid,
+            AbstractPanelEditItem panelEdit,
+            int slot,
+            ItemStack itemStack,
+            HandleEventTypeEnum eventTypeEnum);
 
-    void registerReceiverSetMsgPlayer(UUID uuid, AbstractPanelEditItem panelEdit, Object key, ItemStack itemStack, byte type, HandleEventTypeEnum eventTypeEnum);
+    void registerReceiverSetMsgPlayer(
+            UUID uuid,
+            AbstractPanelEditItem panelEdit,
+            Object key,
+            ItemStack itemStack,
+            byte type,
+            HandleEventTypeEnum eventTypeEnum);
 
-    void registerReceiverAddFunctionMsgPlayer(UUID uuid, AbstractPanelEditItem editItem, AbstractEditManager editManager, ItemStack itemStack, HandleEventTypeEnum handleEventTypeEnum);
+    void registerReceiverAddFunctionMsgPlayer(
+            UUID uuid,
+            AbstractPanelEditItem editItem,
+            AbstractEditManager editManager,
+            ItemStack itemStack,
+            HandleEventTypeEnum handleEventTypeEnum);
 
 
 

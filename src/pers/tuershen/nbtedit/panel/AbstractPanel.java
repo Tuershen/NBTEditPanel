@@ -1,6 +1,7 @@
 package pers.tuershen.nbtedit.panel;
 
 import org.bukkit.inventory.Inventory;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,9 @@ public class AbstractPanel {
 
     //下一页按钮位置
     public static final int NEXT_SLOT_POS = 50;
+
+    //NBT复制内容
+    protected static TagBase tagCopy;
 
     //页面集合
     protected List<Inventory> inventoryList = new ArrayList<>();

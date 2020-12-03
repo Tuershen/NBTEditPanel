@@ -1,14 +1,18 @@
 package pers.tuershen.nbtedit.compoundlibrary.nms.io;
 
 
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
+
+import pers.tuershen.nbtedit.compoundlibrary.nms.code.Base64;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
+
 
 import java.io.*;
-import java.util.Base64;
+
+
 
 public class SerializableStream {
 
-    private static final Base64.Encoder encoder = Base64.getEncoder() ;
+    private static final Base64.Encoder encoder = Base64.getEncoder();
 
     private static final Base64.Decoder decoder = Base64.getDecoder();
 
@@ -16,16 +20,16 @@ public class SerializableStream {
 
     protected static String encode(byte[] bytes) { return encoder.encodeToString(bytes); }
 
-    protected static byte[] decode(String encodedText) {
-        return decoder.decode(encodedText);
-    }
+    protected static byte[] decode(String encodedText) { return decoder.decode(encodedText); }
+
+
 
     /**
      * 序列化
      * @param serializableFormat
      * @return
      */
-    public static String getByteStream(pers.tuershen.nbtedit.compoundlibrary.nms.io.SerializableFormat serializableFormat) {
+    public static String getByteStream(SerializableFormat serializableFormat) {
         try {
             byteArrayOutputStream = new ByteArrayOutputStream();
             ObjectOutputStream objStream = new ObjectOutputStream(byteArrayOutputStream);
@@ -44,12 +48,12 @@ public class SerializableStream {
      * @param data
      * @return
      */
-    public static pers.tuershen.nbtedit.compoundlibrary.nms.io.SerializableFormat deserializeObj(String data) {
+    public static SerializableFormat deserializeObj(String data) {
         ByteArrayInputStream byteStream = decodeByteInputStream(data);
         ObjectInputStream ois = null;
         try {
             ois = new ObjectInputStream(byteStream);
-            pers.tuershen.nbtedit.compoundlibrary.nms.io.SerializableFormat obj = (SerializableFormat)ois.readObject();
+            SerializableFormat obj = (SerializableFormat)ois.readObject();
             return obj;
         }
         catch (IOException|ClassNotFoundException e) {

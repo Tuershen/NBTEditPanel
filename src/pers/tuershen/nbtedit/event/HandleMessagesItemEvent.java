@@ -1,6 +1,6 @@
 package pers.tuershen.nbtedit.event;
 
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import pers.tuershen.nbtedit.function.AbstractEditManager;

@@ -5,10 +5,9 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8 (2)" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Uranium-1710-dev-5-B287-4e9e823-server" level="project" />
     <orderEntry type="library" name="craftbukkit-1.12.2" level="project" />
-    <orderEntry type="library" name="CatServer-116209e-universal" level="project" />
-    <orderEntry type="library" name="[商店]VexStore v1.4.0" level="project" />
   </component>
 </module>

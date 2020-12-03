@@ -3,7 +3,7 @@ package pers.tuershen.nbtedit.function.edit.item.mate;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
 ;
 import pers.tuershen.nbtedit.function.annotation.EditDescribe;
 import pers.tuershen.nbtedit.function.annotation.TagParameter;

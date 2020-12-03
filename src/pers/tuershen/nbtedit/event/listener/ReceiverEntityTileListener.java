@@ -26,27 +26,52 @@ public class ReceiverEntityTileListener implements PushMessages, ReceiverEntityT
 
     private static Map<UUID, AbstractEditManager> managerMap = new HashMap<>();
 
-    @Override
-    public void registerReceiverAddMsgPlayer(UUID uid, AbstractPanelEditEntityTile panelEditEntity, int slot,
-                                             HandleEventTypeEnum eventTypeEnum) {
+    /**
+     * 添加NBT事件
+     * @param uid uid
+     * @param panelEditEntity 添加实体
+     * @param slot 界面坐标
+     * @param eventTypeEnum 事件类型
+     */
+    @Override public void
+    registerReceiverAddMsgPlayer(
+            UUID uid,
+            AbstractPanelEditEntityTile panelEditEntity,
+            int slot,
+            HandleEventTypeEnum eventTypeEnum) {
         panelEditEntityMap.put(uid, panelEditEntity);
         slotMap.put(uid,slot);
         handleEventTypeEnumMap.put(uid, eventTypeEnum);
 
     }
 
-    @Override
-    public void registerReceiverSetMsgPlayer(UUID uuid, AbstractPanelEditEntityTile panelEditEntity, Object key, byte type,
-                                             HandleEventTypeEnum eventTypeEnum) {
+    /**
+     *
+     * @param uuid
+     * @param panelEditEntity
+     * @param key
+     * @param type
+     * @param eventTypeEnum
+     */
+    @Override public void
+    registerReceiverSetMsgPlayer(
+            UUID uuid,
+            AbstractPanelEditEntityTile panelEditEntity,
+            Object key,
+            byte type,
+            HandleEventTypeEnum eventTypeEnum) {
         panelEditEntityMap.put(uuid, panelEditEntity);
         objectKeyMap.put(uuid,key);
         tagTypeMap.put(uuid,type);
         handleEventTypeEnumMap.put(uuid, eventTypeEnum);
     }
 
-    @Override
-    public void registerReceiverAddFunctionMsgPlayer(UUID uuid, AbstractPanelEditEntityTile panelEditEntity, AbstractEditManager editManager,
-                                                     HandleEventTypeEnum handleEventTypeEnum) {
+    @Override public void
+    registerReceiverAddFunctionMsgPlayer(
+            UUID uuid,
+            AbstractPanelEditEntityTile panelEditEntity,
+            AbstractEditManager editManager,
+            HandleEventTypeEnum handleEventTypeEnum) {
         panelEditEntityMap.put(uuid, panelEditEntity);
         managerMap.put(uuid, editManager);
         handleEventTypeEnumMap.put(uuid, handleEventTypeEnum);

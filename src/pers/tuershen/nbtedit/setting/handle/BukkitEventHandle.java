@@ -1,6 +1,6 @@
 package pers.tuershen.nbtedit.setting.handle;
 
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -27,7 +27,7 @@ public class BukkitEventHandle {
         switch (abstractEdit.getEditObjectType()){
             case ITEM:
                 ItemStack item = ((AbstractPanelEditItem) abstractEdit).remove(key, event.getWhoClicked().getItemInHand(), slot);
-                event.getWhoClicked().getInventory().setItemInMainHand(item);
+                event.getWhoClicked().getInventory().setItemInHand(item);
                 break;
             case TILE_ENTITY:
                 ((AbstractPanelEditEntityTile)abstractEdit).remove(key,slot);

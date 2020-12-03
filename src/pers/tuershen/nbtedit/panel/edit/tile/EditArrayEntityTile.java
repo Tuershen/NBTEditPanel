@@ -2,8 +2,8 @@ package pers.tuershen.nbtedit.panel.edit.tile;
 
 
 import pers.tuershen.nbtedit.compoundlibrary.api.TileEntityCompoundApi;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagList;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagList;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -34,6 +34,31 @@ public class EditArrayEntityTile extends AbstractPanelEditEntityTile {
         this.key = key;
         this.slot = slot;
         this.edit = edit;
+    }
+
+
+    @Override public TileEntityCompoundApi tileEntityCompoundApi() {
+        return this.tileEntityCompoundApi;
+    }
+
+    @Override public AbstractEdit getEdit() {
+        return this.edit;
+    }
+
+    @Override public TagBase getTagBase() {
+        return this.list;
+    }
+
+    @Override public Inventory getInventory() {
+        return this.panel;
+    }
+
+    @Override public Object getKey() {
+        return this.key;
+    }
+
+    @Override public int getSlot() {
+        return this.slot;
     }
 
 
@@ -110,7 +135,8 @@ public class EditArrayEntityTile extends AbstractPanelEditEntityTile {
      */
     @Override
     public void addSlotPositionNBTTag(String msg, int slot, Player player) {
-        saveList((TagList) EditPanelManagerEnum.getInstance(TagTypeEnum.LIST).addTag(msg,player,slot,this.list));
+        TagList tagList = (TagList) EditPanelManagerEnum.getInstance(TagTypeEnum.LIST).addTag(msg, player, slot, this.list);
+        saveList(tagList);
         player.openInventory(panel);
     }
 
@@ -126,7 +152,8 @@ public class EditArrayEntityTile extends AbstractPanelEditEntityTile {
     public void setSlotPositionNBTTag(String msg, Object key, Player player, byte type) {
         TagBase tagBase = this.newSingleNBT(type,msg,player);
         if (tagBase != null) {
-            saveList((TagList) EditPanelManagerEnum.getInstance(TagTypeEnum.LIST).setTag(this.list,player,key,tagBase));
+            TagList tagList = (TagList) EditPanelManagerEnum.getInstance(TagTypeEnum.LIST).setTag(this.list, player, key, tagBase);
+            saveList(tagList);
         }
     }
 
@@ -138,7 +165,8 @@ public class EditArrayEntityTile extends AbstractPanelEditEntityTile {
      */
     @Override
     public void addFunctionNBTTag(String msg, Player player, AbstractEditManager editManager) {
-        saveList((TagList) EditPanelManagerEnum.getInstance(TagTypeEnum.LIST).addFunction(msg,player,this.list,editManager));
+        TagList tagList = (TagList) EditPanelManagerEnum.getInstance(TagTypeEnum.LIST).addFunction(msg, player, this.list, editManager);
+        saveList(tagList);
     }
 
     public void saveList(TagList list){
@@ -146,36 +174,6 @@ public class EditArrayEntityTile extends AbstractPanelEditEntityTile {
         this.inventoryList = new ArrayList<>();
         this.analysisList(this.list);
         save(this);
-    }
-
-    @Override
-    public TileEntityCompoundApi tileEntityCompoundApi() {
-        return this.tileEntityCompoundApi;
-    }
-
-    @Override
-    public AbstractEdit getEdit() {
-        return this.edit;
-    }
-
-    @Override
-    public TagBase getTagBase() {
-        return this.list;
-    }
-
-    @Override
-    public Inventory getInventory() {
-        return this.panel;
-    }
-
-    @Override
-    public Object getKey() {
-        return this.key;
-    }
-
-    @Override
-    public int getSlot() {
-        return this.slot;
     }
 
 

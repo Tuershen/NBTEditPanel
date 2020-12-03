@@ -8,14 +8,23 @@ import java.util.UUID;
 
 public interface ReceiverEntityTileSubject {
 
-    void registerReceiverAddMsgPlayer(UUID uid, AbstractPanelEditEntityTile panelEditEntity, int slot,
-                                      HandleEventTypeEnum eventTypeEnum);
+    void registerReceiverAddMsgPlayer(
+            UUID uid,
+            AbstractPanelEditEntityTile panelEditEntity,
+            int slot,
+            HandleEventTypeEnum eventTypeEnum);
 
-    void registerReceiverSetMsgPlayer(UUID uuid, AbstractPanelEditEntityTile panelEditEntity, Object key, byte type,
-                                      HandleEventTypeEnum eventTypeEnum);
+    void registerReceiverSetMsgPlayer(
+            UUID uuid,
+            AbstractPanelEditEntityTile panelEditEntity,
+            Object key, byte type,
+            HandleEventTypeEnum eventTypeEnum);
 
-    void registerReceiverAddFunctionMsgPlayer(UUID uuid, AbstractPanelEditEntityTile editItem,
-                                              AbstractEditManager editManager, HandleEventTypeEnum handleEventTypeEnum);
+    void registerReceiverAddFunctionMsgPlayer(
+            UUID uuid,
+            AbstractPanelEditEntityTile editItem,
+            AbstractEditManager editManager,
+            HandleEventTypeEnum handleEventTypeEnum);
 
 
 

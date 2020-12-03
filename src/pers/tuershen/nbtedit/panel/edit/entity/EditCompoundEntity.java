@@ -1,8 +1,8 @@
 package pers.tuershen.nbtedit.panel.edit.entity;
 
 import pers.tuershen.nbtedit.compoundlibrary.api.EntityNBTTagCompoundApi;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagCompound;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagCompound;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -43,7 +43,29 @@ public class EditCompoundEntity extends AbstractPanelEditEntity {
         this.editItem = editItem;
     }
 
+    @Override public AbstractEdit getEdit() {
+        return this.editItem;
+    }
 
+    @Override public TagBase getTagBase() {
+        return this.tagCompound;
+    }
+
+    @Override public Inventory getInventory() {
+        return this.panel;
+    }
+
+    @Override public Object getKey() {
+        return this.key;
+    }
+
+    @Override public int getSlot() {
+        return this.slot;
+    }
+
+    @Override public EntityNBTTagCompoundApi getEntityNBTTagCompoundApi() {
+        return this.entityNBTTagCompoundApi;
+    }
 
     @Override
     public void remove(Object var, int slot) {
@@ -118,35 +140,7 @@ public class EditCompoundEntity extends AbstractPanelEditEntity {
         save(this);
     }
 
-    @Override
-    public AbstractEdit getEdit() {
-        return this.editItem;
-    }
 
-    @Override
-    public TagBase getTagBase() {
-        return this.tagCompound;
-    }
-
-    @Override
-    public Inventory getInventory() {
-        return this.panel;
-    }
-
-    @Override
-    public Object getKey() {
-        return this.key;
-    }
-
-    @Override
-    public int getSlot() {
-        return this.slot;
-    }
-
-    @Override
-    public EntityNBTTagCompoundApi getEntityNBTTagCompoundApi() {
-        return this.entityNBTTagCompoundApi;
-    }
 
 }
 

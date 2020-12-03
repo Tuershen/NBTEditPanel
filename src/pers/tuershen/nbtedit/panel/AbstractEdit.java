@@ -7,13 +7,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagBase;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagCompound;
-import pers.tuershen.nbtedit.compoundlibrary.nms.nbt.TagList;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagCompound;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagList;
 import pers.tuershen.nbtedit.function.AbstractEditManager;
 import pers.tuershen.nbtedit.function.annotation.EditDescribe;
 import pers.tuershen.nbtedit.event.listener.HandleMessages;
 import pers.tuershen.nbtedit.setting.handle.*;
+import pers.tuershen.nbtedit.setting.type.ButtonEnum;
+import pers.tuershen.nbtedit.setting.type.NewSingleNBT;
+import pers.tuershen.nbtedit.setting.type.TagBaseEnum;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -46,8 +49,8 @@ public abstract class AbstractEdit extends AbstractPanel implements InventoryHol
             inventory.setItem(i, ToolsFunction.functionItem());
         }
         inventory.setItem(PREVIOUS_SLOT_POS, ToolsFunction. previousButton());
-        inventory.setItem(MIDDLE_SLOT_POS,ToolsFunction. middleButton());
-        inventory.setItem(NEXT_SLOT_POS,ToolsFunction. nextButton());
+        inventory.setItem(MIDDLE_SLOT_POS, ToolsFunction. middleButton());
+        inventory.setItem(NEXT_SLOT_POS, ToolsFunction. nextButton());
         ToolsFunction.nbtBaseTypeButton(inventory);
         return inventory;
     }
@@ -64,23 +67,15 @@ public abstract class AbstractEdit extends AbstractPanel implements InventoryHol
 
 
     public <T extends TagBase> String setBase64(T tag, CompoundLibraryApi compoundLibraryApi){
-        return compoundLibraryApi
-                .getSerializeItem()
-                .getTagBaseByteStream(tag);
+        return compoundLibraryApi.getSerializeItem().getTagBaseByteStream(tag);
     }
 
     public TagBase deserializeTagBase(ItemStack itemStack){
-        return compoundLibraryApi
-                .getSerializeItem()
-                .deserializeTagBase(compoundLibraryApi
-                        .getCompound(itemStack)
-                        .getString("NBTTagBase64"));
+        return compoundLibraryApi.getSerializeItem().deserializeTagBase(compoundLibraryApi.getCompound(itemStack).getString("NBTTagBase64"));
     }
 
     public String getSlotNBTTagKey(ItemStack itemStack){
-        return compoundLibraryApi
-                .getCompound(itemStack)
-                .getString("NBTTagBaseKey");
+        return compoundLibraryApi.getCompound(itemStack).getString("NBTTagBaseKey");
     }
 
     public byte getTypeId(int slot){
@@ -104,10 +99,10 @@ public abstract class AbstractEdit extends AbstractPanel implements InventoryHol
 
     public String[] getFunctionToolsMsg(AbstractEditManager manager){
         Method[] methods = manager.getClass().getDeclaredMethods();
-        for (Method method : methods){
-            if (method.isAnnotationPresent(EditDescribe.class)){
-             EditDescribe describe = method.getAnnotation(EditDescribe.class);
-             return describe.describe();
+        for (Method method : methods) {
+            if (method.isAnnotationPresent(EditDescribe.class)) {
+                EditDescribe describe = method.getAnnotation(EditDescribe.class);
+                return describe.describe();
             }
         }
         return null;
@@ -214,7 +209,7 @@ public abstract class AbstractEdit extends AbstractPanel implements InventoryHol
             Inventory inventory = settingDefaultPanel(this);
             for (int i = 0;  ((i <= MAX_EffECTIVE_SLOT) && (slot < tagBaseList.size())); i++,slot++) {
                 TagBase tagBase = tagBaseList.get(slot);
-                if (tagBase == null)continue;
+                if (tagBase == null) continue;
                 inventory.setItem(i,setSlotItemStack(i,tagBase,true));
             }
             this.inventoryList.add(inventory);
@@ -223,8 +218,10 @@ public abstract class AbstractEdit extends AbstractPanel implements InventoryHol
         return this.panel;
     }
 
+    //首次打开界面
     public abstract Inventory newOpenPanel();
 
+    //编辑类型
     public abstract EditObjectTypeEnum getEditObjectType();
 
     public abstract AbstractEdit getEdit();
@@ -233,81 +230,43 @@ public abstract class AbstractEdit extends AbstractPanel implements InventoryHol
 
 }
 
-
+interface TypeOf{ String typeOf();}
+interface SlotTypeOf{ byte slotTypeOf();}
 enum TypeOfEnum implements TypeOf{
-    BYTE( (byte)1){
-        @Override
-        public String typeOf() {
-            return "Byte";
-        }
-    },
-    SHORT( (byte)2) {
-        @Override
-        public String typeOf() {
-            return "Short";
-        }
-    },
-    INT( (byte)3) {
-        @Override
-        public String typeOf() {
-            return "Int";
-        }
-    },
-    LONG( (byte)4) {
-        @Override
-        public String typeOf() {
-            return "Long";
-        }
-    },
-    FLOAT( (byte)5) {
-        @Override
-        public String typeOf() {
-            return "Float";
-        }
-    },
-    DOUBLE( (byte)6) {
-        @Override
-        public String typeOf() {
-            return "Double";
-        }
-    },
-    BYTE_ARRAY( (byte)7) {
-        @Override
-        public String typeOf() {
-            return "ByteArray";
-        }
-    },
-    STRING( (byte)8) {
-        @Override
-        public String typeOf() {
-            return "String";
-        }
-    },
-    LIST( (byte)9) {
-        @Override
-        public String typeOf() {
-            return "List";
-        }
-    },
-    COMPOUND( (byte)10) {
-        @Override
-        public String typeOf() {
-            return "Compound";
-        }
-    },
-    INT_ARRAY( (byte)11) {
-        @Override
-        public String typeOf() {
-            return "IntArray";
-        }
-    },
-    LONG_ARRAY( (byte)12) {
-        @Override
-        public String typeOf() {
-            return "LongArray";
-        }
-    };
-
+    BYTE       ((byte) 1)  {@Override public String typeOf() {
+        return "Byte";
+    }},
+    SHORT      ((byte) 2)  {@Override public String typeOf() {
+        return "Short";
+    }},
+    INT        ((byte) 3)  {@Override public String typeOf() {
+        return "Int";
+    }},
+    LONG       ((byte) 4)  {@Override public String typeOf() {
+        return "Long";
+    }},
+    FLOAT      ((byte) 5)  {@Override public String typeOf() {
+        return "Float";
+    }},
+    DOUBLE     ((byte) 6)  {@Override public String typeOf() {
+        return "Double";
+    }},
+    BYTE_ARRAY ((byte) 7)  {@Override public String typeOf() {
+        return "ByteArray";
+    }},
+    STRING     ((byte) 8)  {@Override public String typeOf() {
+        return "String";
+    }},
+    LIST       ((byte) 9)  {@Override public String typeOf() {
+        return "List";
+    }},
+    COMPOUND   ((byte) 10) {@Override public String typeOf() { return "Compound"; }},
+    INT_ARRAY  ((byte) 11) {@Override public String typeOf() {
+        return "IntArray";
+    }},
+    LONG_ARRAY ((byte) 12) {@Override public String typeOf() {
+        return "LongArray";
+    }};
     private int type;
 
     TypeOfEnum(int type) {
@@ -324,69 +283,33 @@ enum TypeOfEnum implements TypeOf{
 }
 
 enum SlotTypeOfEnum implements SlotTypeOf{
-
-    SLOT_36(36){
-        @Override
-        public byte slotTypeOf() {
+    SLOT_36(36) {@Override public byte slotTypeOf() {
             return 1;
-        }
-    },
-    SLOT_37(37) {
-        @Override
-        public byte slotTypeOf() {
+        }},
+    SLOT_37(37) {@Override public byte slotTypeOf() {
             return 7;
-        }
-    },
-    SLOT_38(38) {
-        @Override
-        public byte slotTypeOf() {
+        }},
+    SLOT_38(38) {@Override public byte slotTypeOf() {
             return 8;
-        }
-    },
-    SLOT_39(39) {
-        @Override
-        public byte slotTypeOf() { return 6; }
-    },
-    SLOT_40(40) {
-        @Override
-        public byte slotTypeOf() {
+        }},
+    SLOT_39(39) {@Override public byte slotTypeOf() { return 6; }},
+    SLOT_40(40) {@Override public byte slotTypeOf() {
             return 5;
-        }
-    },
-    SLOT_41(41) {
-        @Override
-        public byte slotTypeOf() {
+        }},
+    SLOT_41(41) {@Override public byte slotTypeOf() {
             return 3;
-        }
-    },
-    SLOT_42(42) {
-        @Override
-        public byte slotTypeOf() {
-            return 11;
-        }
-    },
-    SLOT_43(43) {
-        @Override
-        public byte slotTypeOf() { return 4; }
-    },
-    SLOT_44(44) {
-        @Override
-        public byte slotTypeOf() {
+        }},
+    SLOT_42(42) {@Override public byte slotTypeOf() { return 11; }},
+    SLOT_43(43) {@Override public byte slotTypeOf() { return 4; }},
+    SLOT_44(44) {@Override public byte slotTypeOf() {
             return 2;
-        }
-    },
-    SLOT_45(45) {
-        @Override
-        public byte slotTypeOf() {
+        }},
+    SLOT_45(45) {@Override public byte slotTypeOf() {
             return 0;
-        }
-    },
-    SLOT_53(53) {
-        @Override
-        public byte slotTypeOf() {
+        }},
+    SLOT_53(53) {@Override public byte slotTypeOf() {
             return 10;
-        }
-    };
+        }};
 
     private int slot;
 
@@ -403,16 +326,5 @@ enum SlotTypeOfEnum implements SlotTypeOf{
     }
 }
 
-interface TypeOf{
-
-    String typeOf();
-
-}
-
-interface SlotTypeOf{
-
-    byte slotTypeOf();
-
-}
 
 
