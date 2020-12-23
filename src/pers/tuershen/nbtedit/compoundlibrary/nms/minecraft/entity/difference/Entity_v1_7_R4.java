@@ -2,7 +2,7 @@ package pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.entity.difference;
 
 import org.bukkit.entity.Entity;
 
-public class Entity_v1_7_R4 extends Entity_v1_6_R3 {
+public class Entity_v1_7_R4 extends Entity_v1_7_R1_R2_R3 {
 
     public Entity_v1_7_R4(Entity entity) {
         super(entity);

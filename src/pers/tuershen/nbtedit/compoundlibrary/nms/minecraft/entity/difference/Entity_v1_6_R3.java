@@ -4,8 +4,11 @@ import org.bukkit.entity.Entity;
 import pers.tuershen.nbtedit.compoundlibrary.api.NBTTagCompoundApi;
 import pers.tuershen.nbtedit.compoundlibrary.nms.imp.AbstractNBTTagCompound;
 import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.entity.AbstractMinecraftEntity;
+import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagCompound;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * @auther Tuershen update Date on 2020/11/28
@@ -20,8 +23,8 @@ public class Entity_v1_6_R3 extends AbstractMinecraftEntity {
         try {
             EntityClass = Class.forName("net.minecraft.entity.Entity");
             NBTTagCompound = Class.forName("net.minecraft.nbt.NBTTagCompound");
-            save = EntityClass.getDeclaredMethod("func_70109_d",NBTTagCompound);
-            load = EntityClass.getDeclaredMethod("func_70039_c",NBTTagCompound);
+            save = EntityClass.getDeclaredMethod("func_70109_d", NBTTagCompound);
+            load = EntityClass.getDeclaredMethod("func_70020_e", NBTTagCompound);
         } catch (NoSuchMethodException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -35,9 +38,7 @@ public class Entity_v1_6_R3 extends AbstractMinecraftEntity {
             this.minecraftEntity = getHandle.invoke(craftEntity);
             save.invoke(minecraftEntity,nbtTagCompound);
             return AbstractNBTTagCompound.getMinecraftNBTTag(this.nbtTagCompound);
-        } catch (InstantiationException
-                | IllegalAccessException
-                | InvocationTargetException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return AbstractNBTTagCompound.getMinecraftNBTTag(this.nbtTagCompound);
@@ -47,9 +48,8 @@ public class Entity_v1_6_R3 extends AbstractMinecraftEntity {
     public void saveNBTTag(NBTTagCompoundApi tagCompoundApi) {
         try {
             this.nbtTagCompound = tagCompoundApi.getNMSCompound();
-            load.invoke(this.minecraftEntity,this.nbtTagCompound);
-        } catch (IllegalAccessException
-                | InvocationTargetException e) {
+            load.invoke(this.minecraftEntity, this.nbtTagCompound);
+        } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }

@@ -64,7 +64,7 @@ enum AreaNBTTagEnum implements AreaLoadNBTTag {
         @Override public AbstractMinecraftNBTTag getMinecraftNBTTag() { return NBT_v1_7_R1_R2_R3.getInstance(); }
         },
     V1_7_R4("v1_7_R4") {
-        @Override public void init(String version) { NBT_v_1_7_R4.init(); }
+        @Override public void init(String version) { NBT_v_1_7_R4.init(version); }
         @Override public AbstractMinecraftNBTTag getMinecraftNBTTag() { return NBT_v_1_7_R4.getInstance(); }
         },
     V1_8_R1("v1_8_R1") {

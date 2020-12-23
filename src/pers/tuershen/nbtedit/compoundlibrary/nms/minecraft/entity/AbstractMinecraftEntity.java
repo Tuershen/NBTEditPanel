@@ -58,8 +58,7 @@ public abstract class AbstractMinecraftEntity implements EntityNBTTagCompoundApi
             getHandle = CraftEntityClass.getDeclaredMethod("getHandle");
             areaEntityEnum = AreaEntityEnum.getInstance(version);
             areaEntityEnum.init(version);
-        } catch (ClassNotFoundException
-                | NoSuchMethodException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException e) {
             e.printStackTrace();
         }
     }

@@ -7,6 +7,7 @@ import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagBase;
 import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagCompound;
 import pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.TagList;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -49,7 +50,7 @@ public class NBTImp_v1_6_R3 extends AbstractNBTTagCompound {
     @Override public <T extends TagBase> void set(String key, T base) { this.baseSetTag(key, base, "func_74782_a"); }
 
     @Override public Object getNMSCompound() {
-        return this.nbtTagCompound;
+        return this.deserializeNBTTagCompound(this.getNBTTagCompoundApi());
     }
 
     @Override public <T extends TagBase> Object newNBTTagList(T tagBase) { return this.baseNewList(tagBase, "func_74742_a"); }
@@ -231,6 +232,41 @@ public class NBTImp_v1_6_R3 extends AbstractNBTTagCompound {
                 return listCrossoverValue(obj);
             case "nbtTagCompound":
                 return compoundCrossoverValue(obj);
+        }
+        return null;
+    }
+
+    /**
+
+     * @param tagBase
+     * @return
+     */
+    protected Object newInstance_NBTBase(TagBase tagBase) {
+        switch (tagBase.getClass().getSimpleName()) {
+            case "TagByte":
+            case "TagByteArray":
+            case "TagDouble":
+            case "TagFloat":
+            case "TagInt":
+            case "TagIntArray":
+            case "TagLong":
+            case "TagShort":
+            case "TagString":
+            case "TagLongArray":
+                String type = tagBase.getClass().getSimpleName();
+                Class<?> tagClass = minecraftNBTTag.getNBTTagClass(tagBase.getTypeId());
+                try {
+                    Constructor<?> constructor = tagClass.getConstructor(String.class, nmsFactory.get(type));
+                    constructor.setAccessible(true);
+                    return minecraftNBTTag.getNBTTagClass((byte)-1).cast(constructor.newInstance(String.valueOf(tagBase.data()), tagBase.data()));
+                } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            case "TagCompound":
+                return deserializeNBTTagCompound((TagCompound) tagBase);
+            case "TagList":
+                return assemblingTagList(((TagList)tagBase).getData());
         }
         return null;
     }

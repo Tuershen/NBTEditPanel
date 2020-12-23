@@ -53,17 +53,11 @@ public enum  HandleEventDistributionEnum implements Distribution {
                        case AbstractEdit.NEXT_SLOT_POS:
                            return HandleEventTypeEnum.NEXT_PAGE;
                            //功能表
-                       case 46:
-                           return HandleEventTypeEnum.FUNCTION_TABLE;
-                           //连续编辑模式
-                       case 47:
-                           return HandleEventTypeEnum.CONTINUOUS_MODE;
-                           //复制
                        case 51:
-                           return HandleEventTypeEnum.NBT_COPY;
-                           //粘贴
+                       case 46:
                        case 52:
-                           return HandleEventTypeEnum.NBT_PASTE;
+                       case 47:
+                           return HandleEventTypeEnum.FUNCTION_TABLE;
                        default:
                            return HandleEventTypeEnum.NULL;
                    }
@@ -76,5 +70,4 @@ public enum  HandleEventDistributionEnum implements Distribution {
            return HandleEventTypeEnum.NULL;
        }
    }
-
 }

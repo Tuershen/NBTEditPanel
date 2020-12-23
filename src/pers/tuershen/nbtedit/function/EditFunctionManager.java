@@ -5,8 +5,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import pers.tuershen.nbtedit.function.edit.tile.mobspawner.entity.EditMobSpawnManager;
 import pers.tuershen.nbtedit.panel.AbstractEdit;
 import pers.tuershen.nbtedit.panel.AbstractPanel;
 import pers.tuershen.nbtedit.panel.edit.AbstractPanelEditEntity;
@@ -24,11 +22,7 @@ public class EditFunctionManager extends AbstractPanel implements InventoryHolde
 
     private static Map<UUID, EditFunctionManager> playerEditManagerMap = new HashMap<>();
 
-    private static final int PANEL_SIZE = 45;
-
-    public static void registerEditFunction(AbstractEditManager editManager){
-        managerList.add(editManager);
-    }
+    private static final int PANEL_MAX_SIZE = 45;
 
     public Inventory settingDefault(EditFunctionManager manager, int size){
         Inventory panel = Bukkit.createInventory(manager, size, "§a快§b捷§d功§c能§e表");
@@ -56,16 +50,19 @@ public class EditFunctionManager extends AbstractPanel implements InventoryHolde
     }
 
     /**
-     *
+     * 创建功能表
+     * 自动分页
      * @return
      */
     public Inventory functionPanel(){
+        //总自定义功能数
         int mangerSize = managerList.size();
-        this.page = mangerSize / PANEL_SIZE + 1;
+        //
+        this.page = mangerSize / PANEL_MAX_SIZE + 1;
         int slot = 0;
         for (int j = 0; j < this.page ; j++) {
             Inventory inventory = settingDefault(this, MAX_SLOT);
-            for (int i = 0; ((i < PANEL_SIZE) && (slot < mangerSize)) ; i++, slot++) {
+            for (int i = 0; ((i < PANEL_MAX_SIZE) && (slot < mangerSize)) ; i++, slot++) {
                 ItemStack itemStack =  managerList.get(slot).getSlotItem();
                 inventory.setItem(i, itemStack);
             }
@@ -77,11 +74,18 @@ public class EditFunctionManager extends AbstractPanel implements InventoryHolde
 
 
     public AbstractEditManager getEditManager(int index){
+        /**
+         * 2020-12-22:17:21
+         * 修复分页
+         * 正确下标应该是  (当前页面下标 * 页面最大容量) + 当前鼠标点击的网格下标
+         */
+        index = (this.nowPage * PANEL_MAX_SIZE) + index;
+
         return managerList.get(index);
     }
 
     /***
-     *
+     * 事件处理
      * @param editManager
      * @param player
      */
@@ -119,6 +123,19 @@ public class EditFunctionManager extends AbstractPanel implements InventoryHolde
         playerEditManagerMap.put(uuid, functionManager);
         return functionManager;
     }
+
+    public static void reloadPlayerEditManagerMap (){
+        playerEditManagerMap = new HashMap<>();
+    }
+
+    public static void reloadManagerList() {
+        managerList = new ArrayList<>();
+    }
+
+    public static void registerEditFunction(AbstractEditManager editManager){
+        managerList.add(editManager);
+    }
+
 
 
 

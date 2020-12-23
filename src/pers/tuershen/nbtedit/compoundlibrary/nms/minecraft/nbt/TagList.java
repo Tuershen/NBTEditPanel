@@ -32,7 +32,10 @@ public class TagList extends TagBase implements Serializable {
 
     @Override
     public String toString() {
-        return this.data.toString();
+        return "TagList{" +
+                "data=" + data +
+                ", type=" + type +
+                '}';
     }
 
     public void remove(int i){

@@ -28,7 +28,7 @@ public class EditCompoundEntityTile extends AbstractPanelEditEntityTile {
     private AbstractEdit edit;
 
     public EditCompoundEntityTile(UUID uuid, TileEntityCompoundApi tileEntityCompoundApi) {
-        super(uuid,tileEntityCompoundApi);
+        super(uuid, tileEntityCompoundApi);
         this.tagCompound = tileEntityCompoundApi.getNBTTagCompound().getNBTTagCompoundApi();
     }
 

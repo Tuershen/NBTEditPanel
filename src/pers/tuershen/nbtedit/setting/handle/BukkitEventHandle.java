@@ -163,7 +163,6 @@ public class BukkitEventHandle {
         }
         AbstractEditManager editManager = editFunctionManager.getEditManager(event.getRawSlot());
         editFunctionManager.pushEditEvent(editManager, (Player) event.getView().getPlayer());
-        return;
     }
 
 }

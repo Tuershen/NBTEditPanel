@@ -5,11 +5,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import pers.tuershen.nbtedit.panel.AbstractEdit;
 import pers.tuershen.nbtedit.function.EditFunctionManager;
 import pers.tuershen.nbtedit.setting.handle.BukkitEventHandle;
 import pers.tuershen.nbtedit.setting.handle.HandleEventDistributionEnum;
 import pers.tuershen.nbtedit.setting.handle.HandleEventTypeEnum;
+
+import java.util.UUID;
 
 public class PlayerEditPanelEvent implements Listener {
 
@@ -39,7 +42,8 @@ public class PlayerEditPanelEvent implements Listener {
                 break;
                 //下一页
             case NEXT_PAGE:
-                event.getWhoClicked().openInventory(((AbstractEdit)event.getInventory().getHolder()).nextPage());
+                Inventory nextPage = ((AbstractEdit) event.getInventory().getHolder()).nextPage();
+                event.getWhoClicked().openInventory(nextPage);
                 event.setCancelled(true);
                 break;
                 //返回
@@ -53,14 +57,15 @@ public class PlayerEditPanelEvent implements Listener {
                 break;
                 //上一页
             case PREVIOUS_PAGE:
-                event.getWhoClicked().openInventory(((AbstractEdit)event.getInventory().getHolder()).thePreviousPage());
+                Inventory thePreviousPage = ((AbstractEdit) event.getInventory().getHolder()).thePreviousPage();
+                event.getWhoClicked().openInventory(thePreviousPage);
                 event.setCancelled(true);
                 break;
             case FUNCTION_TABLE:
-                Inventory inventory = EditFunctionManager.getEditManager(
-                        event.getWhoClicked().getUniqueId(),
-                        ((AbstractEdit) event.getInventory().getHolder())).functionPanel();
-                event.getWhoClicked().openInventory(inventory);
+                UUID uniqueId = event.getWhoClicked().getUniqueId();
+                AbstractEdit holder = (AbstractEdit)event.getInventory().getHolder();
+                Inventory functionPanel = EditFunctionManager.getEditManager(uniqueId, holder).functionPanel();
+                event.getWhoClicked().openInventory(functionPanel);
                 event.setCancelled(true);
                 break;
             case CANCELLED:
@@ -68,15 +73,6 @@ public class PlayerEditPanelEvent implements Listener {
                 break;
             case FUNCTION_CALL:
                 BukkitEventHandle.editFunctionPanel(event);
-                event.setCancelled(true);
-                break;
-            case CONTINUOUS_MODE:
-                event.setCancelled(true);
-                break;
-            case NBT_COPY:
-                event.setCancelled(true);
-                break;
-            case NBT_PASTE:
                 event.setCancelled(true);
                 break;
             case NULL:

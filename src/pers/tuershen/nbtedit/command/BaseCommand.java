@@ -1,5 +1,6 @@
 package pers.tuershen.nbtedit.command;
 
+import pers.tuershen.nbtedit.NBTEditPanel;
 import pers.tuershen.nbtedit.compoundlibrary.api.CompoundLibraryApi;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -8,6 +9,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
+import pers.tuershen.nbtedit.configuration.DynamicLoadingFunction;
+import pers.tuershen.nbtedit.configuration.FunctionSetting;
 import pers.tuershen.nbtedit.panel.edit.item.EditCompoundItem;
 
 import java.util.HashMap;
@@ -22,10 +25,16 @@ public class BaseCommand implements CommandExecutor,ListenerValve {
 
     private Map<UUID, Boolean> valveTileMap = new HashMap<>();
 
+    private FunctionSetting functionSetting;
+
     protected Listener listener;
 
-    public BaseCommand(CompoundLibraryApi compoundLibraryApi){
+    private DynamicLoadingFunction dynamicLoadingFunction;
+
+    public BaseCommand(CompoundLibraryApi compoundLibraryApi, FunctionSetting functionSetting, DynamicLoadingFunction dynamicLoadingFunction){
         this.compoundLibraryApi = compoundLibraryApi;
+        this.functionSetting = functionSetting;
+        this.dynamicLoadingFunction = dynamicLoadingFunction;
     }
 
     @Override
@@ -70,6 +79,11 @@ public class BaseCommand implements CommandExecutor,ListenerValve {
                         valveTileMap.put(player.getUniqueId(),true);
                         player.sendMessage("§7[§bNBTEdit§7] §a已开启方块实体NBT编辑模式");
                         return true;
+                    }else if ("reload".equalsIgnoreCase(args[0])){
+                        functionSetting.reload();
+                        dynamicLoadingFunction.reload();
+                        player.sendMessage("§7[§bNBTEdit§7] §a已重载!");
+                        return true;
                     }
                 }
                 help(player);
@@ -102,6 +116,7 @@ public class BaseCommand implements CommandExecutor,ListenerValve {
         player.sendMessage("§7[§bNBTEdit§7]§e /edit item 手持物品打开物品NBT编辑界面");
         player.sendMessage("§7[§bNBTEdit§7]§e /edit entity 打开生物实体编辑功能，右键生物实体打开NBT编辑界面");
         player.sendMessage("§7[§bNBTEdit§7]§e /edit tile 打开方块实体编辑功能，右键方块实体打开NBT编辑界面");
+        player.sendMessage("§7[§bNBTEdit§7]§e /edit reload 重载配置文件");
     }
 
 }

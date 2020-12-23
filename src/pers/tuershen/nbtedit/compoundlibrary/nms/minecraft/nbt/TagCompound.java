@@ -18,7 +18,10 @@ public class TagCompound extends TagBase implements Serializable {
 
     public TagCompound(){
         this.map = new HashMap<>();
+    }
 
+    public TagCompound (String key, TagBase tagBase) {
+        this.map.put(key, tagBase);
     }
 
     public Map<String, TagBase> getMap() {
@@ -42,6 +45,22 @@ public class TagCompound extends TagBase implements Serializable {
         this.map.remove(var);
     }
 
+    public boolean hasKey(String key) {
+        return this.map.containsKey(key);
+    }
+
+    public TagList getList(String key) {
+        return (TagList) this.map.get(key);
+    }
+
+    public TagCompound getCompound(String key){
+        return (TagCompound) this.map.get(key);
+    }
+
+    public void put(String key, TagBase tagBase){
+        this.map.put(key, tagBase);
+    }
+
 
     @Override
     public Object data() {
@@ -52,4 +71,6 @@ public class TagCompound extends TagBase implements Serializable {
     public byte getTypeId() {
         return 10;
     }
+
+
 }

@@ -179,14 +179,14 @@ public enum  TagBaseEnum implements TagBaseStack {
         specialSymbols.put(9, "➈");
         editButtonMap.put("Compound", new ItemStack(Material.BOOK_AND_QUILL));
         editButtonMap.put("List", new ItemStack(Material.BOOK));
-        editButtonMap.put("Byte", new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)0));
-        editButtonMap.put("ByteArray", new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)1));
-        editButtonMap.put("String", new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)2));
-        editButtonMap.put("Double", new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)3));
-        editButtonMap.put("Float", new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)4));
-        editButtonMap.put("Int", new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)5));
-        editButtonMap.put("IntArray", new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)6));
-        editButtonMap.put("Long", new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)7));
+        editButtonMap.put("Byte", new ItemStack(Material.WOOL, 1, (short)0));
+        editButtonMap.put("ByteArray", new ItemStack(Material.WOOL, 1, (short)1));
+        editButtonMap.put("String", new ItemStack(Material.WOOL, 1, (short)2));
+        editButtonMap.put("Double", new ItemStack(Material.WOOL, 1, (short)3));
+        editButtonMap.put("Float", new ItemStack(Material.WOOL, 1, (short)4));
+        editButtonMap.put("Int", new ItemStack(Material.WOOL, 1, (short)5));
+        editButtonMap.put("IntArray", new ItemStack(Material.WOOL, 1, (short)6));
+        editButtonMap.put("Long", new ItemStack(Material.WOOL, 1, (short)7));
         editButtonMap.put("Short", new ItemStack(Material.THIN_GLASS, 1));
     }
 

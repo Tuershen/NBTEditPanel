@@ -5,9 +5,12 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="1.8 (2)" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Uranium-1710-dev-5-B287-4e9e823-server" level="project" />
-    <orderEntry type="library" name="craftbukkit-1.12.2" level="project" />
+    <orderEntry type="library" exported="" name="CatServer-SRG-11c12cd" level="project" />
+    <orderEntry type="library" exported="" name="craftbukkit-1.12.2" level="project" />
+    <orderEntry type="library" exported="" name="craftbukkit-1.12.21" level="project" />
+    <orderEntry type="module" module-name="CatServer" exported="" />
+    <orderEntry type="library" name="CatServer-116209e-universal" level="project" />
   </component>
 </module>

@@ -5,7 +5,7 @@ import pers.tuershen.nbtedit.compoundlibrary.api.SerializableItemApi;
 /**
  * @auther Tuershen update Date on 2020/12/2
  */
-public class NBTImp_v1_7_R4 extends NBTImp_v1_6_R3 {
+public class NBTImp_v1_7_R4 extends NBTImp_v1_7_R1_R2_R3 {
 
     private static NBTImp_v1_7_R4 nbtImp_1_7_r4;
 

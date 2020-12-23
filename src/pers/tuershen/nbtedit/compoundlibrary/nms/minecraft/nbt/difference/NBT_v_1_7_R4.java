@@ -6,12 +6,16 @@ package pers.tuershen.nbtedit.compoundlibrary.nms.minecraft.nbt.difference;
  * 版本1.7.R4
  * 1.7.R4与其他版本的1.7有所不同
  */
-public class NBT_v_1_7_R4 extends NBT_v1_6_R3 {
+public class NBT_v_1_7_R4 extends NBT_v1_7_R1_R2_R3 {
 
     private static NBT_v_1_7_R4 nbt_v_1_7_r4;
 
-    public static void init(){
-        nbt_v_1_7_r4 = new NBT_v_1_7_R4();
+    public NBT_v_1_7_R4(String version) {
+        super(version);
+    }
+
+    public static void init(String version){
+        nbt_v_1_7_r4 = new NBT_v_1_7_R4(version);
     }
 
     public static NBT_v_1_7_R4 getInstance(){

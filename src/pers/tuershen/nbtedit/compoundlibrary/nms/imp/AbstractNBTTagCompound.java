@@ -80,6 +80,9 @@ public abstract class AbstractNBTTagCompound implements
         return differenceCompoundEnum.getSerializableItemApi();
     }
 
+    /**
+     *
+     */
     public void baseNewNBTTagCompound() {
         try {
             this.nbtTagCompound = minecraftNBTTag.getNBTTagClass((byte)10).newInstance();
@@ -88,6 +91,10 @@ public abstract class AbstractNBTTagCompound implements
         }
     }
 
+    /**
+     *
+     * @param tagCompound
+     */
     public void baseSetCompoundMap(TagCompound tagCompound){
         if (tagCompound != null){
             this.nbtTagCompound = deserializeNBTTagCompound(tagCompound);
@@ -96,6 +103,11 @@ public abstract class AbstractNBTTagCompound implements
         }
     }
 
+    /**
+     *
+     * @param key
+     * @param removeMethod
+     */
     public void baseRemove(String key, String removeMethod){
         try {
             Method method = this.nbtTagCompound.getClass().getDeclaredMethod(removeMethod, String.class);
@@ -291,27 +303,61 @@ public abstract class AbstractNBTTagCompound implements
      */
     public <T extends TagBase> Object newBase(T tagBase) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
         if (tagBase instanceof TagByte){
-            return minecraftNBTTag.getNBTTagClass((byte) 1).getConstructor(byte.class).newInstance(((TagByte) tagBase).getData());
+            byte data = ((TagByte) tagBase).getData();
+            return createNBT(minecraftNBTTag.getNBTTagClass((byte) 1), data);
         }else if (tagBase instanceof TagByteArray){
-            return minecraftNBTTag.getNBTTagClass((byte) 7).getConstructor(byte[].class).newInstance(((TagByteArray) tagBase).getData());
+            byte[] data = ((TagByteArray) tagBase).getData();
+            return createNBT(minecraftNBTTag.getNBTTagClass((byte) 7), data);
         }else if (tagBase instanceof TagString){
-            return minecraftNBTTag.getNBTTagClass((byte) 8).getConstructor(String.class).newInstance(((TagString) tagBase).getData());
+            String data = ((TagString) tagBase).getData();
+            return createNBT(minecraftNBTTag.getNBTTagClass((byte) 8), data);
         }else if (tagBase instanceof TagDouble){
-            return minecraftNBTTag.getNBTTagClass((byte) 6).getConstructor(double.class).newInstance(((TagDouble) tagBase).getData());
+            double data = ((TagDouble) tagBase).getData();
+            return createNBT(minecraftNBTTag.getNBTTagClass((byte) 6), data);
         }else if (tagBase instanceof TagFloat){
-            return minecraftNBTTag.getNBTTagClass((byte) 5).getConstructor(float.class).newInstance(((TagFloat) tagBase).getData());
+            float data = ((TagFloat) tagBase).getData();
+            return createNBT(minecraftNBTTag.getNBTTagClass((byte) 5), data);
         }else if (tagBase instanceof TagInt){
-            return minecraftNBTTag.getNBTTagClass((byte) 3).getConstructor(int.class).newInstance(((TagInt) tagBase).getData());
+            int data = ((TagInt) tagBase).getData();
+            return createNBT(minecraftNBTTag.getNBTTagClass((byte) 3), data);
         }else if (tagBase instanceof TagIntArray){
-            return minecraftNBTTag.getNBTTagClass((byte) 11).getConstructor(int[].class).newInstance(((TagIntArray) tagBase).getData());
+            int[] data = ((TagIntArray) tagBase).getData();
+            return createNBT(minecraftNBTTag.getNBTTagClass((byte) 11), data);
         }else if (tagBase instanceof TagLong){
-            return minecraftNBTTag.getNBTTagClass((byte) 4).getConstructor(long.class).newInstance(((TagLong) tagBase).getData());
+            long data = ((TagLong) tagBase).getData();
+            return createNBT(minecraftNBTTag.getNBTTagClass((byte) 4), data);
         }else if (tagBase instanceof TagShort){
-            return minecraftNBTTag.getNBTTagClass((byte) 2).getConstructor(short.class).newInstance(((TagShort) tagBase).getData());
+            short data = ((TagShort) tagBase).getData();
+            return createNBT(minecraftNBTTag.getNBTTagClass((byte) 2), data);
         }else if (tagBase instanceof TagList){
             return newNBTTagList(tagBase);
         }else if (tagBase instanceof TagCompound){
             return newNBTTagCompound(tagBase);
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @param nbt
+     * @param data
+     * @return
+     */
+    public Object createNBT(Class<?> nbt, Object data){
+        try {
+            Constructor<?> constructor = nbt.getConstructor(data.getClass());
+            Object example = constructor.newInstance(data);
+            Field[] declaredFields = example.getClass().getDeclaredFields();
+            for (int i = 0; i < declaredFields.length; i++) {
+                if (declaredFields[i].getType().getSimpleName().equalsIgnoreCase(data.getClass().getSimpleName())){
+                    declaredFields[i].setAccessible(true);
+                    declaredFields[i].set(example, data);
+                    break;
+                }
+            }
+            return example;
+        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException | InstantiationException e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -333,7 +379,7 @@ public abstract class AbstractNBTTagCompound implements
             Method method = nbtTagList.getClass().getDeclaredMethod(addMethod, nbtTagBaseClass);
             for (TagBase tagBase : tagBases){
                 Object value = newBase(tagBase);
-                method.invoke(nbtTagList,value);
+                method.invoke(nbtTagList, value);
             }
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
@@ -342,6 +388,13 @@ public abstract class AbstractNBTTagCompound implements
     }
 
 
+    /**
+     *
+     * @param sub
+     * @param method
+     * @param <T>
+     * @return
+     */
     public <T extends TagBase> Object baseNewCompound(T sub, String method) {
         TagCompound tagCompound = (TagCompound)sub;
         Map<String, TagBase> tagBaseMap = tagCompound.getMap();
